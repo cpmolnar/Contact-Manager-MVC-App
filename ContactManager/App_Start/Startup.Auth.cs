@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using ContactManager.Models;
+using System.Configuration;
 
 namespace ContactManager
 {
@@ -57,11 +58,23 @@ namespace ContactManager
             //app.UseFacebookAuthentication(
             //   appId: "",
             //   appSecret: "");
+            String GoogClientID = "";
+            String GoogClientSecret = "";
+            try
+            {
+                var appSettings = ConfigurationManager.AppSettings;
+                GoogClientID = appSettings["GoogClientID"] ?? "Not Found";
+                GoogClientSecret = appSettings["GoogClientSecret"] ?? "Not Found";
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error reading app settings");
+            }
 
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "269276262454-3ctm57jq5gp7ltbehbbk2qivhl3ctvqe.apps.googleusercontent.com",
-                ClientSecret = "N_LeoFoHMn-bJ9QRpOrBF_-K"
+                ClientId = GoogClientID,
+                ClientSecret = GoogClientSecret
             });
         }
     }
