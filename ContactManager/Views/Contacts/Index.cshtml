@@ -6,27 +6,31 @@
 
 <h2>Index</h2>
 
+<head>
+    <script type="text/javascript" src="~/Scripts/SortAlphabetically.js"></script>
+</head>
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table" id="dbTable">
     <tr>
-        <th>
+        <th onclick="sortTable(0, 'Name')">
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th>
+        <th onclick="sortTable(1, 'Address')">
             @Html.DisplayNameFor(model => model.Address)
         </th>
-        <th>
+        <th onclick="sortTable(2, 'City')">
             @Html.DisplayNameFor(model => model.City)
         </th>
-        <th>
+        <th onclick="sortTable(3, 'State')">
             @Html.DisplayNameFor(model => model.State)
         </th>
-        <th>
+        <th onclick="sortTable(4, 'Zip')">
             @Html.DisplayNameFor(model => model.Zip)
         </th>
-        <th>
+        <th onclick="sortTable(5, 'Email')">
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th></th>
