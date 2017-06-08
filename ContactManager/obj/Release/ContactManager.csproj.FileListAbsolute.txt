@@ -119,3 +119,4 @@ C:\Users\Carl\Documents\Visual Studio 2015\Projects\ContactManager\ContactManage
 C:\Users\Carl\Documents\Visual Studio 2015\Projects\ContactManager\ContactManager\obj\Release\ContactManager.Migrations.init.resources
 C:\Users\Carl\Documents\Visual Studio 2015\Projects\ContactManager\ContactManager\obj\Release\ContactManager.Migrations.init1.resources
 C:\Users\Carl\Documents\Visual Studio 2015\Projects\ContactManager\ContactManager\obj\Release\ContactManager.csproj.GenerateResource.Cache
+C:\Users\Carl\Documents\Visual Studio 2015\Projects\ContactManager\ContactManager\obj\Release\ContactManager.csprojResolveAssemblyReference.cache

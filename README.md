@@ -1,2 +1,3 @@
 # Contact-Manager-MVC-App
-ASP.NET MVC using EF to connect to AzureSQL.
+This web app is a place for users to share their contact info with others.
+Made with ASP.NET MVC using EF to connect to MSSQL.

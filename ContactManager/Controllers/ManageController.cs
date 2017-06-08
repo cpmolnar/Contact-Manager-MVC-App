@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ContactManager.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ContactManager.Controllers
 {
@@ -64,6 +65,10 @@ namespace ContactManager.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            ApplicationDbContext context = new ApplicationDbContext();
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+            var role = UserManager.GetRoles(userId);
+            ViewBag.Role = role[0].ToString();
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
@@ -333,7 +338,7 @@ namespace ContactManager.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
