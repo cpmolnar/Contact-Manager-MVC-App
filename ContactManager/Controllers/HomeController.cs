@@ -16,14 +16,14 @@ namespace ContactManager.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "A simple contact manager! Share your contact info.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Please feel free to contact me with any questions.";
 
             return View();
         }
