@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ContactManager.Models;
+using Microsoft.AspNet.Identity;
+using System.Data.SqlClient;
 
 namespace ContactManager.Controllers
 {
@@ -17,7 +19,35 @@ namespace ContactManager.Controllers
         // GET: Contacts
         public ActionResult Index()
         {
-            return View(db.Contacts.ToList());
+            string queryString = "SELECT * "
+                            + "FROM dbo.Contacts "
+                            + "WHERE OwnerID = '" + User.Identity.GetUserId() + "'";
+            if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+                queryString = "SELECT * "
+                            + "FROM dbo.Contacts";
+            string connectionString = "Server=(LocalDb)\\MSSQLLocalDB;Database=aspnet-ContactManager-20170601074344;User Id=tempname;Password=Dryle123";
+            List<Contact> columnData = new List<Contact>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                // command.Parameters.AddWithValue("@OwnerId", User.Identity.GetUserId());
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        columnData.Add(new Contact(reader));
+                    }
+                }
+                finally
+                {
+                    // Always call Close when done reading.
+                    reader.Close();
+                }
+            }
+            db.Contacts.ToList();
+            return View(columnData);
         }
 
         // GET: Contacts/Details/5
@@ -46,10 +76,11 @@ namespace ContactManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ContactId,Name,Address,City,State,Zip,Email")] Contact contact)
+        public ActionResult Create([Bind(Include = "ContactId,Name,Address,City,State,Zip,Email,OwnerId")] Contact contact)
         {
             if (ModelState.IsValid)
             {
+                contact.OwnerID = User.Identity.GetUserId();
                 db.Contacts.Add(contact);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -78,7 +109,7 @@ namespace ContactManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ContactId,Name,Address,City,State,Zip,Email")] Contact contact)
+        public ActionResult Edit([Bind(Include = "ContactId,Name,Address,City,State,Zip,Email,OwnerId")] Contact contact)
         {
             if (ModelState.IsValid)
             {

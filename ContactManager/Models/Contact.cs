@@ -1,9 +1,28 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Data.SqlClient;
 using System.Globalization;
 namespace ContactManager.Models
 {
     public class Contact
     {
+        private SqlDataReader reader;
+
+        public Contact()
+        {
+
+        }
+        public Contact(SqlDataReader reader)
+        {
+            Name = reader.GetString(1);
+            Address = reader.GetString(2);
+            City = reader.GetString(3);
+            State = reader.GetString(4);
+            Zip = reader.GetString(5);
+            Email = reader.GetString(6);
+            OwnerID = reader.GetString(7);
+
+        }
+
         public int ContactId { get; set; }
 
         // user ID from AspNetUser table

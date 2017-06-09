@@ -210,21 +210,12 @@
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706020109548_Initial.cs" />
-    <Compile Include="Migrations\201706020109548_Initial.Designer.cs">
-      <DependentUpon>201706020109548_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706061457389_init.cs" />
-    <Compile Include="Migrations\201706061457389_init.Designer.cs">
-      <DependentUpon>201706061457389_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706061733219_init1.cs" />
-    <Compile Include="Migrations\201706061733219_init1.Designer.cs">
-      <DependentUpon>201706061733219_init1.cs</DependentUpon>
+    <Compile Include="Migrations\201706090230029_initial.cs" />
+    <Compile Include="Migrations\201706090230029_initial.Designer.cs">
+      <DependentUpon>201706090230029_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -317,7 +308,6 @@
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
-    <Content Include="Views\User\User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -330,14 +320,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706020109548_Initial.resx">
-      <DependentUpon>201706020109548_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706061457389_init.resx">
-      <DependentUpon>201706061457389_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706061733219_init1.resx">
-      <DependentUpon>201706061733219_init1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201706090230029_initial.resx">
+      <DependentUpon>201706090230029_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

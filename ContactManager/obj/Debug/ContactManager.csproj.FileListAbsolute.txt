@@ -80,8 +80,6 @@ c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManage
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.csprojResolveAssemblyReference.cache
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.dll
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.pdb
-c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.Migrations.Initial.resources
-c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.csproj.GenerateResource.Cache
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\roslyn\csc.exe.config
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\roslyn\csc.rsp
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\roslyn\csi.exe
@@ -118,5 +116,5 @@ c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManage
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\roslyn\System.Xml.XPath.XDocument.dll
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\roslyn\vbc.exe.config
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\roslyn\vbc.rsp
-C:\Users\Carl\Documents\Visual Studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.Migrations.init.resources
-C:\Users\Carl\Documents\Visual Studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.Migrations.init1.resources
+C:\Users\Carl\Documents\Visual Studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.Migrations.initial.resources
+C:\Users\Carl\Documents\Visual Studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.csproj.GenerateResource.Cache

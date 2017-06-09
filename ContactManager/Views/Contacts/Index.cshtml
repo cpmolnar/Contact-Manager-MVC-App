@@ -33,6 +33,9 @@
         <th onclick="sortTable(5, 'Email')">
             @Html.DisplayNameFor(model => model.Email)
         </th>
+        <th onclick="sortTable(6, 'Owner')">
+            @Html.DisplayNameFor(model => model.OwnerID)
+        </th>
         <th></th>
     </tr>
 
@@ -55,6 +58,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OwnerID)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ContactId }) |
