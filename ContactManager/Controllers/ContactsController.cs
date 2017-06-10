@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ContactManager.Models;
 using Microsoft.AspNet.Identity;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace ContactManager.Controllers
 {
@@ -25,7 +26,7 @@ namespace ContactManager.Controllers
             if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
                 queryString = "SELECT * "
                             + "FROM dbo.Contacts";
-            string connectionString = "Server=(LocalDb)\\MSSQLLocalDB;Database=aspnet-ContactManager-20170601074344;User Id=tempname;Password=Dryle123";
+            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
             List<Contact> columnData = new List<Contact>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

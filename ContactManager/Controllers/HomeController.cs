@@ -16,8 +16,8 @@ namespace ContactManager.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "A simple contact manager! Share your contact info.";
-
+            // ViewBag.Message = "A simple contact manager! Share your contact info.";
+            ViewBag.Message = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
             return View();
         }
 
