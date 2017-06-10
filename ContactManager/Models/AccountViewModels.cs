@@ -73,7 +73,7 @@ namespace ContactManager.Models
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "UserName")]
+        [Display(Name = "Username")]
         public string UserName { get; set; }
 
         [Required]
@@ -86,10 +86,6 @@ namespace ContactManager.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-        [Required]
-        [Display(Name = "UserRoles")]
-        public string UserRoles { get; set; }
     }
 
     public class ResetPasswordViewModel

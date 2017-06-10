@@ -141,8 +141,6 @@ namespace ContactManager.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
-                                            .ToList(), "Name", "Name");
             return View();
         }
 
@@ -168,14 +166,12 @@ namespace ContactManager.Controllers
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     //Assign Role to user Here      
-                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
+                    await this.UserManager.AddToRoleAsync(user.Id, "User");
                     //Ends Here    
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
-            ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin"))
-                                            .ToList(), "Name", "Name");
             // If we got this far, something failed, redisplay form
             return View(model);
         }

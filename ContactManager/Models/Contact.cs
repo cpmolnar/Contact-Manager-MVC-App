@@ -1,6 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Globalization;
+using Microsoft.AspNet.Identity;
+
 namespace ContactManager.Models
 {
     public class Contact
@@ -19,7 +23,21 @@ namespace ContactManager.Models
             State = reader.GetString(4);
             Zip = reader.GetString(5);
             Email = reader.GetString(6);
-            OwnerID = reader.GetString(7);
+
+            string queryString = "SELECT UserName "
+                            + "FROM dbo.AspNetUsers "
+                            + "WHERE Id = '" + reader.GetString(7) + "'";
+            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+            List<Contact> columnData = new List<Contact>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                SqlDataReader r = command.ExecuteReader();
+                r.Read();
+                OwnerID = r.GetString(0);
+                r.Close();
+            }
 
         }
 
