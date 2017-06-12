@@ -21,24 +21,23 @@ namespace ContactManager.Controllers
         public ActionResult Index()
         {
             string queryString = "SELECT * "
-                            + "FROM dbo.Contacts "
+                            + "FROM dbo.AspNetContacts "
                             + "WHERE OwnerID = '" + User.Identity.GetUserId() + "'";
             if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
                 queryString = "SELECT * "
-                            + "FROM dbo.Contacts";
+                            + "FROM dbo.AspNetContacts";
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
-            List<Contact> columnData = new List<Contact>();
+            List<AspNetContact> columnData = new List<AspNetContact>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
-                // command.Parameters.AddWithValue("@OwnerId", User.Identity.GetUserId());
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 try
                 {
                     while (reader.Read())
                     {
-                        columnData.Add(new Contact(reader));
+                        columnData.Add(new AspNetContact(reader));
                     }
                 }
                 finally
@@ -58,7 +57,7 @@ namespace ContactManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contact contact = db.Contacts.Find(id);
+            AspNetContact contact = db.Contacts.Find(id);
             if (contact == null)
             {
                 return HttpNotFound();
@@ -77,7 +76,7 @@ namespace ContactManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ContactId,Name,Address,City,State,Zip,Email,OwnerId")] Contact contact)
+        public ActionResult Create([Bind(Include = "ContactId,Name,Address,City,State,Zip,Email,OwnerId")] AspNetContact contact)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +96,7 @@ namespace ContactManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contact contact = db.Contacts.Find(id);
+            AspNetContact contact = db.Contacts.Find(id);
             if (contact == null)
             {
                 return HttpNotFound();
@@ -110,7 +109,7 @@ namespace ContactManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ContactId,Name,Address,City,State,Zip,Email,OwnerId")] Contact contact)
+        public ActionResult Edit([Bind(Include = "ContactId,Name,Address,City,State,Zip,Email,OwnerID")] AspNetContact contact)
         {
             if (ModelState.IsValid)
             {
@@ -128,7 +127,7 @@ namespace ContactManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contact contact = db.Contacts.Find(id);
+            AspNetContact contact = db.Contacts.Find(id);
             if (contact == null)
             {
                 return HttpNotFound();
@@ -141,7 +140,7 @@ namespace ContactManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Contact contact = db.Contacts.Find(id);
+            AspNetContact contact = db.Contacts.Find(id);
             db.Contacts.Remove(contact);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -16,7 +16,7 @@ namespace ContactManager.Migrations
         protected override void Seed(ContactManager.Models.ApplicationDbContext context)
         {
             context.Contacts.AddOrUpdate(p => p.Name,
-               new Contact
+               new AspNetContact
                {
                    Name = "Debra Garcia",
                    Address = "1234 Main St",
@@ -26,7 +26,7 @@ namespace ContactManager.Migrations
                    Email = "debra@example.com",
                    OwnerID = "56d1f846-7a09-4ba1-a6b8-8890fbd2ef93",
                },
-                new Contact
+                new AspNetContact
                 {
                     Name = "Thorsten Weinrich",
                     Address = "5678 1st Ave W",
@@ -36,7 +36,7 @@ namespace ContactManager.Migrations
                     Email = "thorsten@example.com",
                     OwnerID = "7edead37-b45b-47fd-8ab2-bcb8ef83a9b0",
                 },
-                new Contact
+                new AspNetContact
                 {
                     Name = "Yuhong Li",
                     Address = "9012 State st",
@@ -46,7 +46,7 @@ namespace ContactManager.Migrations
                     Email = "yuhong@example.com",
                     OwnerID = "7edead37-b45b-47fd-8ab2-bcb8ef83a9b0",
                 },
-                new Contact
+                new AspNetContact
                 {
                     Name = "Jon Orton",
                     Address = "3456 Maple St",
@@ -56,7 +56,7 @@ namespace ContactManager.Migrations
                     Email = "jon@example.com",
                     OwnerID = "06c6848b-9d7c-4009-8330-0b853261f114",
                 },
-                new Contact
+                new AspNetContact
                 {
                     Name = "Diliana Alexieva-Bosseva",
                     Address = "7890 2nd Ave E",
