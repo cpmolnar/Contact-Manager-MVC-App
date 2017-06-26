@@ -116,5 +116,5 @@ c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManage
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\roslyn\System.Xml.XPath.XDocument.dll
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\roslyn\vbc.exe.config
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\roslyn\vbc.rsp
-C:\Users\Carl\Documents\Visual Studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.Migrations._new.resources
-C:\Users\Carl\Documents\Visual Studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.csproj.GenerateResource.Cache
+C:\Users\Carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.Migrations._new.resources
+C:\Users\Carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.csproj.GenerateResource.Cache

@@ -35,7 +35,7 @@ namespace ContactManager.Tests.Controllers
             ViewResult result = controller.About() as ViewResult;
 
             // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
+            Assert.AreEqual("A simple contact manager! Share your contact info.", result.ViewBag.Message);
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace ContactManager.Tests.Controllers
             ViewResult result = controller.Contact() as ViewResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.AreEqual("Please feel free to contact me with any questions.", result.ViewBag.Message);
         }
     }
 }

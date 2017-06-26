@@ -1,45 +1,108 @@
-﻿@model IEnumerable<ContactManager.Models.AspNetGroup>
+﻿@model IEnumerable<ContactManager.Models.Groups>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "My Groups";
 }
 
-<h2>Index</h2>
+<h2>My Groups</h2>
+
+<head>
+    <script type="text/javascript" src="~/Scripts/SortAlphabetically.js"></script>
+</head>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Owner
-        </th>
-        <th>
-            Group Name
-        </th>
-        <th>
-            Status Message
-        </th>
-        <th></th>
-    </tr>
+    @Html.ActionLink("Create New Group", "Create")
+</p> 
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GroupName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StatusMessage)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.GroupId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.GroupId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.GroupId })
-        </td>
-    </tr>
+@foreach (var item in Model)
+{
+    <hr color="gray">
+    <span style="font-size:160%"><b>@Html.DisplayFor(modelItem => item.Group.GroupName)</b></span>
+    <span style="font-size:120%"><i>@Html.DisplayFor(modelItem => item.Group.StatusMessage)</i></span>
+    <p style="font-size:100%">
+        Owner: @Html.DisplayFor(modelItem => item.Group.UserId)
+    </p>
+    <p>
+        @Html.ActionLink("Edit Group", "Edit", new { id = item.Group.GroupId })
+    </p>
+
+    <span style="font-size:120%"><b>Group Members</b></span>
+    <span>@Html.ActionLink("Add Group Member", "../GroupUsers/Create", new { id = item.Group.GroupId })</span>
+    <table class="table" id="usersTable">
+        <tr>
+            <th>
+                Username
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var i in item.Users)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => i.UserName)
+                </td>
+                <td align="right">
+                    @Html.ActionLink("Remove", actionName: "../GroupUsers/Delete", controllerName: "AspNetGroupUsers", routeValues: new { id = item.Group.GroupId, username = i.UserName}, htmlAttributes: null)
+                </td>
+            </tr>
+        }
+    </table>
+
+    <span style="font-size:120%"><b>Group Contacts</b></span>
+    <span>@Html.ActionLink("Add Group Contact", "../GroupContacts/Edit", new { id = item.Group.GroupId })</span>
+    <table class="table" id="contactsTable">
+        <tr>
+            <th onclick="sortTable(0, 'Name')">
+                Name
+            </th>
+            <th onclick="sortTable(1, 'Address')">
+                Address
+            </th>
+            <th onclick="sortTable(2, 'City')">
+                City
+            </th>
+            <th onclick="sortTable(3, 'State')">
+                State
+            </th>
+            <th onclick="sortTable(4, 'Zip')">
+                Zip
+            </th>
+            <th onclick="sortTable(5, 'Email')">
+                Email
+            </th>
+            <th onclick="sortTable(6, 'Owner')">
+                Owner
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var i in item.Contacts)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.State)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Zip)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.OwnerID)
+                </td>
+                <td align="right">
+                    @Html.ActionLink("Remove", "../GroupContacts/Delete", new { id = i.ContactId })
+                </td>
+            </tr>
+        }
+    </table>
 }
-
-</table>

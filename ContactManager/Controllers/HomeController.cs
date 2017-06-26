@@ -16,15 +16,13 @@ namespace ContactManager.Controllers
 
         public ActionResult About()
         {
-            // ViewBag.Message = "A simple contact manager! Share your contact info.";
-            ViewBag.Message = Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath;
+            ViewBag.Message = "A simple contact manager! Share your contact info.";
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Please feel free to contact me with any questions.";
-
             return View();
         }
     }

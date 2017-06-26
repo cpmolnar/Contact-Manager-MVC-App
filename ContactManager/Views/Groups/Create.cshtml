@@ -1,7 +1,7 @@
 ﻿@model ContactManager.Models.AspNetGroup
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create New Group";
 }
 
 <h2>Create</h2>
@@ -42,3 +42,7 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

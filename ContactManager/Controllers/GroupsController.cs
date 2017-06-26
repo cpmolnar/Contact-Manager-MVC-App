@@ -16,18 +16,20 @@ namespace ContactManager.Controllers
     public class GroupsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        public string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
 
         // GET: AspNetGroups
         public ActionResult Index()
         {
-            string queryString = "SELECT * "
-                            + "FROM dbo.AspNetGroups "
-                            + "WHERE OwnerID = '" + User.Identity.GetUserId() + "'";
-            if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+            string queryString = "SELECT dbo.AspNetGroups.* "
+                            + "FROM dbo.AspNetGroupUsers "
+                            + "JOIN dbo.AspNetGroups ON dbo.AspNetGroupUsers.GroupId=dbo.AspNetGroups.GroupId "
+                            + "WHERE dbo.AspNetGroupUsers.UserId='" + User.Identity.GetUserId() + "'";
+            /*if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
                 queryString = "SELECT * "
-                            + "FROM dbo.AspNetGroups";
-            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
-            List<AspNetGroup> columnData = new List<AspNetGroup>();
+                            + "FROM dbo.AspNetGroups";*/
+            
+            List<Groups> columnData = new List<Groups>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
@@ -37,7 +39,7 @@ namespace ContactManager.Controllers
                 {
                     while (reader.Read())
                     {
-                        columnData.Add(new AspNetGroup(reader));
+                        columnData.Add(new Groups(reader));
                     }
                 }
                 finally
@@ -83,6 +85,16 @@ namespace ContactManager.Controllers
                 aspNetGroup.UserId = User.Identity.GetUserId();
                 db.AspNetGroups.Add(aspNetGroup);
                 db.SaveChanges();
+
+                AspNetGroupUser gu = new AspNetGroupUser
+                {
+                    GroupId = aspNetGroup.GroupId,
+                    UserId = User.Identity.GetUserId(),
+                };
+
+                db.AspNetGroupUsers.Add(gu);
+                db.SaveChanges();
+                
                 return RedirectToAction("Index");
             }
 
