@@ -48,8 +48,30 @@ namespace ContactManager.Controllers
                     reader.Close();
                 }
             }
-            db.AspNetGroups.ToList();
-            return View(columnData);
+            queryString = "SELECT * "
+                            + "FROM dbo.AspNetContacts "
+                            + "WHERE OwnerID = '" + User.Identity.GetUserId() + "'";
+            List<AspNetContact> columnDataContact = new List<AspNetContact>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    while (reader.Read())
+                    {
+                        columnDataContact.Add(new AspNetContact(reader));
+                    }
+                }
+                finally
+                {
+                    // Always call Close when done reading.
+                    reader.Close();
+                }
+            }
+            Tuple<IEnumerable<Groups>, IEnumerable<AspNetContact>> r = new Tuple<IEnumerable<Groups>, IEnumerable<AspNetContact>>(columnData, columnDataContact);
+            return View(r);
         }
 
         // GET: AspNetGroups/Details/5

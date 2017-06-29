@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ContactManager.Models.Groups>
+﻿@model Tuple<IEnumerable<ContactManager.Models.Groups>, IEnumerable<ContactManager.Models.AspNetContact>>
 
 @{
     ViewBag.Title = "My Groups";
@@ -8,13 +8,15 @@
 
 <head>
     <script type="text/javascript" src="~/Scripts/SortAlphabetically.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery-3.1.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript"></script>
 </head>
 
 <p>
     @Html.ActionLink("Create New Group", "Create")
 </p> 
 
-@foreach (var item in Model)
+@foreach (var item in Model.Item1)
 {
     <hr color="gray">
     <span style="font-size:160%"><b>@Html.DisplayFor(modelItem => item.Group.GroupName)</b></span>
@@ -42,14 +44,15 @@
                     @Html.DisplayFor(modelItem => i.UserName)
                 </td>
                 <td align="right">
-                    @Html.ActionLink("Remove", actionName: "../GroupUsers/Delete", controllerName: "GroupUsersController", routeValues: new { id = item.Group.GroupId, username = i.UserName}, htmlAttributes: null)
+                    @Html.ActionLink("Remove", actionName: "../GroupUsers/Delete", controllerName: "GroupUsers", routeValues: new { id = item.Group.GroupId, username = i.UserName}, htmlAttributes: null)
                 </td>
             </tr>
         }
     </table>
 
     <span style="font-size:120%"><b>Group Contacts</b></span>
-    <span>@Html.ActionLink("Add Group Contact", "../GroupContacts/Edit", new { id = item.Group.GroupId })</span>
+    <span><a id="addBtn" href="javascript:addContact(@item.Group.GroupId);">Add Group Contacts</a></span>
+    
     <table class="table" id="contactsTable">
         <tr>
             <th onclick="sortTable(0, 'Name')">
@@ -100,9 +103,128 @@
                     @Html.DisplayFor(modelItem => i.OwnerID)
                 </td>
                 <td align="right">
-                    @Html.ActionLink("Remove", "../GroupContacts/Delete", new { id = i.ContactId })
+                    <form method="post" action="~/Views/GroupContacts/Delete.cshtml" id="form">
+                        @Html.AntiForgeryToken()
+                        <a id="rmvBtn" href="javascript:removeContact(@item.Group.GroupId, @i.ContactId);">Remove</a>
+                    </form>
                 </td>
             </tr>
         }
     </table>
+}
+
+@using (Html.BeginForm("Create", "GroupContacts", method: FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Add a contact</h2>
+            </div>
+            <div class="modal-body">
+                <table class="table" id="dbTable">
+                    <tr>
+                        <th></th>
+                        <th onclick="sortTable(0, 'Name')">Name</th>
+                        <th onclick="sortTable(1, 'Address')">Address</th>
+                        <th onclick="sortTable(2, 'City')">City</th>
+                        <th onclick="sortTable(3, 'State')">State</th>
+                        <th onclick="sortTable(4, 'Zip')">Zip</th>
+                        <th onclick="sortTable(5, 'Email')">Email</th>
+                    </tr>
+                    @foreach (var contact in Model.Item2)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" value="@contact.ContactId" name="selected" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => contact.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => contact.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => contact.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => contact.State)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => contact.Zip)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => contact.Email)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" id="submitBtn" value="Submit" class="btn btn-default" style="float:left;" onclick="return submitChecked();"/>
+            </div>
+        </div>
+    </div>
+}
+
+
+<script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    close.onclick = function () {
+        modal.style.display = "none";
+    }
+    var i;
+    function addContact(id)
+    {
+        i = id;
+        modal.style.display = "block";
+    }
+
+    function removeContact(g, c) {
+        form = document.getElementById('form');
+        var att = '../GroupContacts/Delete?groupId=' + g + '&contactId=' + c;
+        $('form').attr('action', att);
+        form.submit();
+    }
+
+    function submitChecked() {
+        var selectedIds = [];
+        $("input[name=selected]:checked").each(function () {
+            selectedIds.push($(this).val());
+        });
+        var att = '../GroupContacts/Create?groupId=' + i;
+        $.each(selectedIds, function (k, v) {
+            att += '&contactIds=' + String(selectedIds[k]);
+        });
+        $('form').attr('action', att);
+        if (selectedIds.length > 0)
+            return;
+        else {
+            modal.style.display = "none";
+            return false;
+        }
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
 }

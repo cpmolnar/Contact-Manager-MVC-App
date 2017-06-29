@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ContactManager.Models;
+using System.Data.Entity.Migrations;
 
 namespace ContactManager.Controllers
 {
@@ -44,7 +45,7 @@ namespace ContactManager.Controllers
         // POST: GroupContacts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "GroupId,ContactId")] AspNetGroupContact aspNetGroupContact)
         {
@@ -56,6 +57,25 @@ namespace ContactManager.Controllers
             }
 
             return View(aspNetGroupContact);
+        }*/
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(int groupId, int[] contactIds)
+        {
+            if (ModelState.IsValid)
+            {
+                for (int i=0; i < contactIds.Length; i++)
+                {
+                    AspNetGroupContact item = new AspNetGroupContact(groupId, contactIds[i]);
+                    db.AspNetGroupContacts.AddOrUpdate(item);
+                }
+                
+                db.SaveChanges();
+                return RedirectToAction("../Groups/Index");
+            }
+
+            return View();
         }
 
         // GET: GroupContacts/Edit/5
@@ -90,13 +110,13 @@ namespace ContactManager.Controllers
         }
 
         // GET: GroupContacts/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? groupId, int contactId)
         {
-            if (id == null)
+            if (groupId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            AspNetGroupContact aspNetGroupContact = db.AspNetGroupContacts.Find(id);
+            AspNetGroupContact aspNetGroupContact = db.AspNetGroupContacts.Find(groupId, contactId);
             if (aspNetGroupContact == null)
             {
                 return HttpNotFound();
@@ -106,13 +126,14 @@ namespace ContactManager.Controllers
 
         // POST: GroupContacts/Delete/5
         [HttpPost, ActionName("Delete")]
+        [AcceptVerbs(HttpVerbs.Post)]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int groupId, int contactId)
         {
-            AspNetGroupContact aspNetGroupContact = db.AspNetGroupContacts.Find(id);
+            AspNetGroupContact aspNetGroupContact = db.AspNetGroupContacts.Find(groupId, contactId);
             db.AspNetGroupContacts.Remove(aspNetGroupContact);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("../Groups/Index");
         }
 
         protected override void Dispose(bool disposing)
