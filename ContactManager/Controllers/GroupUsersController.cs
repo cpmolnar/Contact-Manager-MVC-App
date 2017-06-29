@@ -159,7 +159,7 @@ namespace ContactManager.Controllers
             AspNetGroupUser aspNetGroupUser = db.AspNetGroupUsers.Find(id, uid);
             db.AspNetGroupUsers.Remove(aspNetGroupUser);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("../Groups/Index");
         }
 
         protected override void Dispose(bool disposing)

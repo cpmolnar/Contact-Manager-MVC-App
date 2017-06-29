@@ -42,7 +42,7 @@
                     @Html.DisplayFor(modelItem => i.UserName)
                 </td>
                 <td align="right">
-                    @Html.ActionLink("Remove", actionName: "../GroupUsers/Delete", controllerName: "AspNetGroupUsers", routeValues: new { id = item.Group.GroupId, username = i.UserName}, htmlAttributes: null)
+                    @Html.ActionLink("Remove", actionName: "../GroupUsers/Delete", controllerName: "GroupUsersController", routeValues: new { id = item.Group.GroupId, username = i.UserName}, htmlAttributes: null)
                 </td>
             </tr>
         }

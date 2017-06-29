@@ -4,7 +4,5 @@
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Carl\\Documents\\Visual\ Studio\ 2015\\Projects\\ContactManager\\ContactManager\\obj\\Release\\Package\\PackageTmp$" />
     <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\Carl\\Documents\\Visual\ Studio\ 2015\\Projects\\ContactManager\\ContactManager\\obj\\Release\\Package\\PackageTmp$" />
   </parameter>
-  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-ContactManager-20170601074344.mdf;Initial Catalog=aspnet-ContactManager-20170601074344;Integrated Security=True" tags="">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\Carl\\Documents\\Visual\ Studio\ 2015\\Projects\\ContactManager\\ContactManager\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
-  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="" tags="" />
 </parameters>

@@ -5886,14 +5886,17 @@ button.close {
 }
 .modal {
   display: none;
-  overflow: hidden;
+  overflow: auto;
   position: fixed;
+  padding-top: 100px;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 1050;
   -webkit-overflow-scrolling: touch;
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   outline: 0;
 }
 .modal.fade .modal-dialog {
@@ -5923,15 +5926,33 @@ button.close {
 .modal-content {
   position: relative;
   background-color: #ffffff;
+  margin: auto;
   border: 1px solid #999999;
   border: 1px solid transparent;
   border-radius: 0;
+  width: 50%;
   -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
   -webkit-background-clip: padding-box;
           background-clip: padding-box;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
   outline: 0;
 }
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
 .modal-backdrop {
   position: fixed;
   top: 0;

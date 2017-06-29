@@ -9,7 +9,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>AspNetGroup</h4>
         <hr />
@@ -36,10 +36,67 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
+                <input type="button" id="deleteBtn" value="Delete Group" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
+
+@using (Html.BeginForm("Delete", "Groups", routeValues: new { id = Model.GroupId }, method: FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Delete Group</h2>
+            </div>
+            <div class="modal-body">
+                <p>You are about to delete group ___.</p>
+                <p>Are you sure you want to delete it?</p>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" id="yesBtn" value="Yes" class="btn btn-default" style="float:left; background-color:green; color: white" />
+                <input type="button" id="noBtn" value="No" class="btn btn-default" style="float:left; background-color:red; color: white" />
+            </div>
+        </div>
+    </div>
+}
+<script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("deleteBtn");
+
+    var close = document.getElementById("noBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    close.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+    
 
 <div>
     @Html.ActionLink("Back to List", "Index")

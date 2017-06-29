@@ -77,7 +77,6 @@ c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManage
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\Microsoft.Owin.Security.Google.xml
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\Microsoft.Owin.Security.Twitter.xml
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.csprojResolveAssemblyReference.cache
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.dll
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\obj\Debug\ContactManager.pdb
 c:\users\carl\documents\visual studio 2015\Projects\ContactManager\ContactManager\bin\roslyn\csc.exe.config
