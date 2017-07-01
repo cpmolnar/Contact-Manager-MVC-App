@@ -11,8 +11,6 @@ namespace ContactManager.Models
 {
     public class AspNetGroupUser
     {
-        private SqlDataReader reader;
-
         public AspNetGroupUser() { }
         public AspNetGroupUser(SqlDataReader reader)
         {

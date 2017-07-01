@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="IIS Web Application Name" description="" value="ContactManager20170601074002" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Carl\\Documents\\Visual\ Studio\ 2015\\Projects\\ContactManager\\ContactManager\\obj\\Release\\Package\\PackageTmp$" />
-    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\Carl\\Documents\\Visual\ Studio\ 2015\\Projects\\ContactManager\\ContactManager\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\Carl\\documents\\visual\ studio\ 2015\\Projects\\ContactManager\\ContactManager\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\Carl\\documents\\visual\ studio\ 2015\\Projects\\ContactManager\\ContactManager\\obj\\Release\\Package\\PackageTmp$" />
   </parameter>
-  <parameter name="DefaultConnection-Web.config Connection String" description="" value="" tags="" />
+  <parameter name="SQLConnection-Web.config Connection String" description="" value="" tags="" />
 </parameters>

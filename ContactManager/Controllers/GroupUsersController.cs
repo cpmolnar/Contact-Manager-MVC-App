@@ -49,13 +49,13 @@ namespace ContactManager.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserName")] ApplicationUser User, int id)
+        public ActionResult Create(int groupId, string username)
         {
             if (ModelState.IsValid)
             {
                 string queryString = "SELECT dbo.AspNetUsers.Id "
                             + "FROM dbo.AspNetUsers "
-                            + "WHERE dbo.AspNetUsers.UserName='" + User.UserName + "'";
+                            + "WHERE dbo.AspNetUsers.UserName='" + username + "'";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     SqlCommand command = new SqlCommand(queryString, connection);
@@ -64,7 +64,7 @@ namespace ContactManager.Controllers
                     reader.Read();
                     AspNetGroupUser gu = new AspNetGroupUser
                     {
-                        GroupId = id,
+                        GroupId = groupId,
                         UserId = reader.GetString(0)
                     };
                     db.AspNetGroupUsers.Add(gu);
@@ -141,9 +141,9 @@ namespace ContactManager.Controllers
         // POST: AspNetGroupUsers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id, string username)
+        public ActionResult DeleteConfirmed(int groupId, string username)
         {
-            string uid;
+            string userId;
             string queryString = "SELECT dbo.AspNetUsers.Id "
                             + "FROM dbo.AspNetUsers "
                             + "WHERE dbo.AspNetUsers.UserName='" + username + "'";
@@ -153,10 +153,10 @@ namespace ContactManager.Controllers
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
                 reader.Read();
-                uid = reader.GetString(0);
+                userId = reader.GetString(0);
                 reader.Close();
             }
-            AspNetGroupUser aspNetGroupUser = db.AspNetGroupUsers.Find(id, uid);
+            AspNetGroupUser aspNetGroupUser = db.AspNetGroupUsers.Find(groupId, userId);
             db.AspNetGroupUsers.Remove(aspNetGroupUser);
             db.SaveChanges();
             return RedirectToAction("../Groups/Index");

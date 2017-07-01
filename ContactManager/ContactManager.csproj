@@ -327,11 +327,6 @@
     <Content Include="Views\GroupUsers\Details.cshtml" />
     <Content Include="Views\GroupUsers\Edit.cshtml" />
     <Content Include="Views\GroupUsers\Index.cshtml" />
-    <Content Include="Views\GroupContacts\Create.cshtml" />
-    <Content Include="Views\GroupContacts\Delete.cshtml" />
-    <Content Include="Views\GroupContacts\Details.cshtml" />
-    <Content Include="Views\GroupContacts\Edit.cshtml" />
-    <Content Include="Views\GroupContacts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

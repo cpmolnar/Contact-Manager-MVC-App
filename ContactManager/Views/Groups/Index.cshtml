@@ -29,7 +29,7 @@
     </p>
 
     <span style="font-size:120%"><b>Group Members</b></span>
-    <span>@Html.ActionLink("Add Group Member", "../GroupUsers/Create", new { id = item.Group.GroupId })</span>
+    <span><a href="javascript:addUser(@item.Group.GroupId);">Add Group User</a></span>
     <table class="table" id="usersTable">
         <tr>
             <th>
@@ -44,14 +44,17 @@
                     @Html.DisplayFor(modelItem => i.UserName)
                 </td>
                 <td align="right">
-                    @Html.ActionLink("Remove", actionName: "../GroupUsers/Delete", controllerName: "GroupUsers", routeValues: new { id = item.Group.GroupId, username = i.UserName}, htmlAttributes: null)
+                    <form method="post" id="rmvUserForm">
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:removeUser(@item.Group.GroupId, '@i.UserName');">Remove</a>
+                    </form>
                 </td>
             </tr>
         }
     </table>
 
     <span style="font-size:120%"><b>Group Contacts</b></span>
-    <span><a id="addBtn" href="javascript:addContact(@item.Group.GroupId);">Add Group Contacts</a></span>
+    <span><a href="javascript:addContact(@item.Group.GroupId);">Add Group Contacts</a></span>
     
     <table class="table" id="contactsTable">
         <tr>
@@ -103,9 +106,9 @@
                     @Html.DisplayFor(modelItem => i.OwnerID)
                 </td>
                 <td align="right">
-                    <form method="post" action="~/Views/GroupContacts/Delete.cshtml" id="form">
+                    <form method="post" id="rmvContactForm">
                         @Html.AntiForgeryToken()
-                        <a id="rmvBtn" href="javascript:removeContact(@item.Group.GroupId, @i.ContactId);">Remove</a>
+                        <a href="javascript:removeContact(@item.Group.GroupId, @i.ContactId);">Remove</a>
                     </form>
                 </td>
             </tr>
@@ -117,11 +120,11 @@
 {
     @Html.AntiForgeryToken()
 
-    <div id="myModal" class="modal">
+    <div id="addContactsModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>Add a contact</h2>
+                <h2>Add your contacts</h2>
             </div>
             <div class="modal-body">
                 <table class="table" id="dbTable">
@@ -163,38 +166,75 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <input type="submit" id="submitBtn" value="Submit" class="btn btn-default" style="float:left;" onclick="return submitChecked();"/>
+                <input type="submit" value="Add Contacts" class="btn btn-default" style="float:left;" onclick="return submitContactsChecked();"/>
             </div>
         </div>
     </div>
 }
 
+@using (Html.BeginForm("Create", "GroupUsers", method: FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div id="addUsersModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Add a user</h2>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <span style="float:left"><b>Username</b></span>
+                    <div class="col-md-10">
+                        <input type="text" placeholder="Type a username..." id="username"/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Add User" class="btn btn-default" style="float:left;" onclick="return submitUser();" />
+            </div>
+        </div>
+    </div>
+}
 
 <script>
     // Get the modal
-    var modal = document.getElementById('myModal');
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    var contactsmodal = document.getElementById('addContactsModal');
+    var usersmodal = document.getElementById('addUsersModal');
+    // Get the <span> element that closes the modal 
+    var userSpan = document.getElementsByClassName("close")[1];
+    var contactSpan = document.getElementsByClassName("close")[0];
 
     close.onclick = function () {
-        modal.style.display = "none";
+        contactsmodal.style.display = "none";
+        usersmodal.style.display = "none";
     }
     var i;
-    function addContact(id)
-    {
+    function addContact(id){
         i = id;
-        modal.style.display = "block";
+        contactsmodal.style.display = "block";
+    }
+
+    function addUser(id) {
+        i = id;
+        usersmodal.style.display = "block";
     }
 
     function removeContact(g, c) {
-        form = document.getElementById('form');
+        form = document.getElementById('rmvContactForm');
         var att = '../GroupContacts/Delete?groupId=' + g + '&contactId=' + c;
         $('form').attr('action', att);
         form.submit();
     }
 
-    function submitChecked() {
+    function removeUser(g, u) {
+        form = document.getElementById('rmvUserForm');
+        var att = '../GroupUsers/Delete?groupId=' + g + '&username=' + u;
+        $('form').attr('action', att);
+        form.submit();
+    }
+
+    function submitContactsChecked() {
         var selectedIds = [];
         $("input[name=selected]:checked").each(function () {
             selectedIds.push($(this).val());
@@ -207,14 +247,30 @@
         if (selectedIds.length > 0)
             return;
         else {
-            modal.style.display = "none";
+            contactsmodal.style.display = "none";
+            return false;
+        }
+    }
+
+    function submitUser() {
+        var u = $('#username').val();
+        var att = '../GroupUsers/Create?groupId=' + i + '&username=' + u;
+        $('form').attr('action', att);
+        if (u.length > 0)
+            return;
+        else {
+            usersmodal.style.display = "none";
             return false;
         }
     }
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
+    contactSpan.onclick = function () {
+        contactsmodal.style.display = "none";
+    }
+
+    userSpan.onclick = function () {
+        usersmodal.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
