@@ -18,11 +18,11 @@ namespace ContactManager.Models
         {
             ContactId = reader.GetInt32(0);
             Name = reader.GetString(1);
-            Address = reader.GetString(2);
-            City = reader.GetString(3);
-            State = reader.GetString(4);
-            Zip = reader.GetString(5);
-            Email = reader.GetString(6);
+            Address = (reader.IsDBNull(2) == false) ? reader.GetString(2) : "";
+            City = (reader.IsDBNull(3) == false) ? reader.GetString(3) : "";
+            State = (reader.IsDBNull(4) == false) ? reader.GetString(4) : "";
+            Zip = (reader.IsDBNull(5) == false) ? reader.GetString(5) : "";
+            Email = (reader.IsDBNull(6) == false) ? reader.GetString(6) : "";
 
             string queryString = "SELECT UserName "
                             + "FROM dbo.AspNetUsers "

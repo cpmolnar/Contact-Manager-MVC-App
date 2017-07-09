@@ -64,11 +64,21 @@
             @Html.DisplayFor(modelItem => item.OwnerID)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ContactId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ContactId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ContactId })
+            <form method="post" id="rmvContactForm">
+                @Html.AntiForgeryToken()
+                @Html.ActionLink("Edit", "Edit", new { id = item.ContactId }) |
+                <a href="javascript:removeContact(@item.ContactId);">Remove</a>
+            </form>
         </td>
     </tr>
 }
-
 </table>
+
+<script>
+    function removeContact(c) {
+        form = document.getElementById('rmvContactForm');
+        var att = '../Contacts/Delete/' + c;
+        $('form').attr('action', att);
+        form.submit();
+    }
+</script>
